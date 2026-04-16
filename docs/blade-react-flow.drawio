@@ -1,0 +1,112 @@
+<mxfile host="65bd71144e">
+    <diagram id="bladeReactFlow" name="Blade_React_Flow">
+        <mxGraphModel dx="691" dy="677" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="laneBlade" value="&lt;font color=&quot;#ffffff&quot;&gt;Blade Flow (SSR)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=2;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;align=center;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="40" width="720" height="760" as="geometry"/>
+                </mxCell>
+                <mxCell id="laneReact" value="&lt;font color=&quot;#000000&quot;&gt;React Flow (Client API Fetch)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=2;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="820" y="100" width="720" height="760" as="geometry"/>
+                </mxCell>
+                <mxCell id="browserBlade" value="Browser&#10;GET /blade/hello" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="90" y="110" width="220" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="webRoute" value="Laravel Web Route&#10;routes/web.php&#10;/ -&gt; /blade/hello&#10;/blade/hello -&gt; HelloBladeController@hello" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="90" y="220" width="320" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="bladeController" value="HelloBladeController::hello()&#10;message = service-&gt;hello()['message']&#10;items = service-&gt;items()" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="90" y="390" width="320" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="bladeView" value="&lt;font color=&quot;#000000&quot;&gt;Blade View&lt;br&gt;resources/views/hello.blade.php&lt;br&gt;Render HTML: {{ $message }} + @foreach($items)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+                    <mxGeometry x="90" y="560" width="320" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="bladeResponse" value="&lt;font color=&quot;#000000&quot;&gt;HTML Response&lt;br&gt;Blade Screen表示&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+                    <mxGeometry x="90" y="710" width="220" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="browserReact" value="Browser&#10;Open http://localhost:5173" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="850" y="110" width="250" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="reactApp" value="React App&#10;frontend/src/App.jsx&#10;useEffect -&gt; Promise.all(fetch)" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="850" y="220" width="300" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="apiHello" value="GET {apiBaseUrl}/hello&#10;(default: http://localhost:8000/api/hello)" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="850" y="380" width="300" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="apiItems" value="GET {apiBaseUrl}/items&#10;(default: http://localhost:8000/api/items)" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="1210" y="380" width="270" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="reactState" value="Response Parse and State Update&#10;setHello(helloData.message)&#10;setItems(itemsData.data)" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="850" y="540" width="360" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="reactRender" value="&lt;font color=&quot;#000000&quot;&gt;Render UI&lt;br&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+                    <mxGeometry x="850" y="700" width="300" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="apiRoute" value="Laravel API Route&#10;routes/api.php&#10;/hello -&gt; HelloApiController@hello&#10;/items -&gt; HelloApiController@items" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="520" y="280" width="280" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="apiController" value="HelloApiController&#10;hello(): json(service-&gt;hello())&#10;items(): json({ data: service-&gt;items() })" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="520" y="450" width="320" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="service" value="&lt;font color=&quot;#000000&quot;&gt;Shared Service&lt;br&gt;ResearchSampleService&lt;br&gt;hello() -&amp;gt; { message }&lt;br&gt;items() -&amp;gt; repository-&amp;gt;all()&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+                    <mxGeometry x="520" y="620" width="320" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="repository" value="&lt;font color=&quot;#000000&quot;&gt;ItemRepository::all()&lt;br&gt;[ {id:1,name:'Laravel'}, ... ]&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+                    <mxGeometry x="520" y="770" width="320" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="note" value="&lt;font color=&quot;#000000&quot;&gt;Note: BladeはAPIを呼ばず、ControllerからServiceを直接呼び出してHTMLを生成。&lt;br&gt;Reactはブラウザから/api/hello, /api/itemsを呼び出して画面描画する。&lt;/font&gt;" style="shape=note;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" vertex="1">
+                    <mxGeometry x="1190" y="660" width="330" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="e1" style="endArrow=classic;html=1;strokeColor=#000000;" parent="1" source="browserBlade" target="webRoute" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e2" style="endArrow=classic;html=1;strokeColor=#000000;" parent="1" source="webRoute" target="bladeController" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e3" style="endArrow=classic;html=1;strokeColor=#000000;" parent="1" source="bladeController" target="service" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e4" style="endArrow=classic;html=1;strokeColor=#000000;" parent="1" source="service" target="repository" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e5" value="message + items" style="endArrow=classic;html=1;strokeColor=#000000;" parent="1" source="service" target="bladeController" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e6" style="endArrow=classic;html=1;strokeColor=#000000;" parent="1" source="bladeController" target="bladeView" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e7" value="HTML" style="endArrow=classic;html=1;strokeColor=#000000;" parent="1" source="bladeView" target="bladeResponse" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e8" style="endArrow=classic;html=1;strokeColor=#000000;" parent="1" source="browserReact" target="reactApp" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e9" value="Promise.all" style="endArrow=classic;html=1;strokeColor=#000000;" parent="1" source="reactApp" target="apiHello" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e10" value="Promise.all" style="endArrow=classic;html=1;strokeColor=#000000;" parent="1" source="reactApp" target="apiItems" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e11" value="GET /api/hello" style="endArrow=classic;html=1;strokeColor=#000000;" parent="1" source="apiHello" target="apiRoute" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e12" value="GET /api/items" style="endArrow=classic;html=1;strokeColor=#000000;" parent="1" source="apiItems" target="apiRoute" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e13" style="endArrow=classic;html=1;strokeColor=#000000;" parent="1" source="apiRoute" target="apiController" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e14" style="endArrow=classic;html=1;strokeColor=#000000;" parent="1" source="apiController" target="service" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e15" value="{ message } / { data:[...] }" style="endArrow=classic;html=1;strokeColor=#000000;" parent="1" source="apiController" target="reactState" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e16" style="endArrow=classic;html=1;strokeColor=#000000;" parent="1" source="reactState" target="reactRender" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
