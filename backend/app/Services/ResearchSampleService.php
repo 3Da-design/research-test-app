@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Greeting;
 use App\Repositories\ItemRepository;
 
 class ResearchSampleService
@@ -15,8 +16,10 @@ class ResearchSampleService
      */
     public function hello(): array
     {
+        $message = Greeting::query()->value('message');
+
         return [
-            'message' => 'Hello from shared Laravel backend API',
+            'message' => $message ?? 'Hello from shared Laravel backend API',
         ];
     }
 

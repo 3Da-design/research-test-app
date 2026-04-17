@@ -2,6 +2,8 @@
 
 namespace App\Repositories;
 
+use App\Models\Item;
+
 class ItemRepository
 {
     /**
@@ -9,10 +11,13 @@ class ItemRepository
      */
     public function all(): array
     {
-        return [
-            ['id' => 1, 'name' => 'Laravel'],
-            ['id' => 2, 'name' => 'React'],
-            ['id' => 3, 'name' => 'Comparison Sample'],
-        ];
+        return Item::query()
+            ->orderBy('id')
+            ->get()
+            ->map(fn (Item $item) => [
+                'id' => $item->id,
+                'name' => $item->name,
+            ])
+            ->all();
     }
 }
