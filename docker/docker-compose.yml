@@ -7,6 +7,8 @@ services:
       POSTGRES_DB: research
     ports:
       - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U research -d research"]
       interval: 5s
@@ -18,8 +20,6 @@ services:
       context: ..
       dockerfile: docker/backend.Dockerfile
     working_dir: /var/www/html
-    volumes:
-      - ../backend:/var/www/html
     environment:
       DB_CONNECTION: pgsql
       DB_HOST: postgres
@@ -27,11 +27,15 @@ services:
       DB_DATABASE: research
       DB_USERNAME: research
       DB_PASSWORD: research
+    volumes:
+      - ../backend:/var/www/html
     command:
       - sh
       - -lc
       - >
         php artisan config:clear &&
+        php artisan migrate --force &&
+        php artisan db:seed --force --class=ResearchSampleSeeder &&
         php artisan cache:clear &&
         php artisan serve --host=0.0.0.0 --port=8000
     ports:
@@ -43,6 +47,8 @@ services:
   frontend:
     image: node:22-alpine
     working_dir: /app
+    environment:
+      VITE_API_PROXY_TARGET: http://backend:8000
     volumes:
       - ../frontend:/app
     command: >
@@ -52,3 +58,6 @@ services:
       - "5173:5173"
     depends_on:
       - backend
+
+volumes:
+  postgres_data:

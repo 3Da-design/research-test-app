@@ -4,7 +4,7 @@ import ApiSection from './components/ApiSection'
 
 function App() {
   const apiBaseUrl = useMemo(
-    () => import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8000/api',
+    () => import.meta.env.VITE_API_BASE_URL ?? '/api',
     [],
   )
   const [hello, setHello] = useState('')
