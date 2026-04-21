@@ -67,10 +67,10 @@ PHPUnit は `phpunit.xml` により **SQLite（メモリ）** で実行されま
 docker exec docker-backend-1 php artisan test
 ```
 
-JUnit 付き（CI と同様）:
+JUnit 付き（CI と同様、`backend` ディレクトリで）:
 
 ```bash
-docker exec docker-backend-1 php artisan test -- --log-junit junit.xml
+docker exec docker-backend-1 ./vendor/bin/phpunit --configuration phpunit.xml --log-junit junit.xml
 ```
 
 ### CI が不具合を検知できることの確認手順

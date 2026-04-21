@@ -23,7 +23,8 @@ jobs:
           cp .env.example .env
           php artisan key:generate --force
       - name: Run Laravel tests
-        run: php artisan test -- --log-junit junit.xml
+        # php artisan test 経由だと PHPUnit 12 への --log-junit 転送が失敗することがあるため phpunit を直接実行
+        run: ./vendor/bin/phpunit --configuration phpunit.xml --log-junit junit.xml
       - name: Upload PHPUnit JUnit report
         if: always()
         uses: actions/upload-artifact@v4
