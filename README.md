@@ -46,6 +46,19 @@ docker compose -f docker/docker-compose.yml up -d
 
 ## テストと品質確認
 
+### バックエンドテストの一覧と役割
+
+| 種別 | ファイル | 役割 |
+|------|----------|------|
+| Unit | `backend/tests/Unit/ExampleTest.php` | 常に成功する例（アプリ挙動は検証しない） |
+| Feature | `backend/tests/Feature/ExampleTest.php` | `GET /` が `/blade/hello` にリダイレクトすること |
+| Feature | `backend/tests/Feature/ResearchSampleApiTest.php` | `ResearchSampleSeeder` 適用後の `GET /api/hello`・`GET /api/items`・`GET /blade/hello` の内容（**API/Blade と DB の契約の本命**） |
+
+### CI（`.github/workflows/ci.yml`）
+
+- **backend-tests**: `composer install` → `.env` 生成 → `php artisan test`（失敗時はジョブ失敗）。JUnit は `backend/junit.xml` に出力し、成果物として保存。
+- **frontend-checks**: `npm ci` → `lint` → `build`
+
 ### Laravel テスト
 
 PHPUnit は `phpunit.xml` により **SQLite（メモリ）** で実行されます。
@@ -53,6 +66,20 @@ PHPUnit は `phpunit.xml` により **SQLite（メモリ）** で実行されま
 ```bash
 docker exec docker-backend-1 php artisan test
 ```
+
+JUnit 付き（CI と同様）:
+
+```bash
+docker exec docker-backend-1 php artisan test -- --log-junit junit.xml
+```
+
+### CI が不具合を検知できることの確認手順
+
+1. アプリだけを壊す（テストは変更しない）。例: `backend/database/seeders/ResearchSampleSeeder.php` の `message` を別の文字列に変える。
+2. `php artisan test` を実行する。**失敗すれば**、現行の Feature テストがその不具合を検知できている。
+3. 変更を元に戻し、テストが再び通ることを確認する。
+
+リモートで GitHub Actions を確認する場合: 上記の壊した状態を **`demo/ci-intentional-failure` ブランチ**に push すると、`backend-tests` が失敗する想定です（`main` は壊さない）。
 
 ### React lint / build
 
