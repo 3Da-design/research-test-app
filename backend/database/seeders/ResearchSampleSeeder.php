@@ -12,7 +12,7 @@ class ResearchSampleSeeder extends Seeder
     {
         if (! Greeting::query()->exists()) {
             Greeting::query()->create([
-                'message' => 'Hello from shared Laravel backend API',
+                'message' => 'BROKEN_INTENTIONALLY_FOR_CI_DEMO',
             ]);
         }
 
